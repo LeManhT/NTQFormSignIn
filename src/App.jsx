@@ -1,11 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Form from './component/form/Form';
-import SignUp from './component/signUpForm/SignUp';
 import SignInForm from './component/signInForm/SignInForm';
+import SignUpForm from './component/signUpForm/SignUpForm'
 import { ToastContainer } from 'react-toastify';
-import HomePage from './component/HomePage/HomePage';
+import HomePage from './component/homePage/HomePage';
 function App() {
   return (
     <>
@@ -14,11 +13,10 @@ function App() {
         <Routes>
           <Route path='/' element={<HomePage></HomePage>}></Route>
           <Route path='/signIn' element={<SignInForm></SignInForm>}></Route>
-          <Route path='/signUp' element={<SignUp></SignUp>}></Route>
+          <Route path='/signUp' element={<SignUpForm></SignUpForm>}></Route>
         </Routes>
       </BrowserRouter>
     </>
   );
 }
-
 export default App;

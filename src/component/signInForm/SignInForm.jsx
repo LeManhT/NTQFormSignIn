@@ -2,13 +2,11 @@ import React from 'react'
 import Description from '../description/Description'
 import InputBox from '../inputBox/InputBox'
 import SocialMedia from '../socialMedia/SocialMedia'
-import { SIGN_UP, USERNAME, PASSWORD, EMAIL, PHONE } from '../../const/const'
+import { SIGN_UP, USERNAME, PASSWORD } from '../../const/const'
 import { useState } from 'react'
 import ButtonSubmit from '../button/ButtonSubmit'
-import { debounce } from '../../utils/utils'
 import Panel from '../panelContainer/Panel'
-import { useEffect } from 'react'
-import { successMes, ToastError } from '../common/toast'
+import { successMes, errMes } from '../../common/toast'
 
 
 
@@ -18,14 +16,18 @@ function SignInForm() {
     const [pass, setPass] = useState('')
     const handleSubmit = (e) => {
         e.preventDefault();
-        const account = JSON.parse(localStorage.getItem("accountSignUp")) || [];
-        const result = account.find((data) =>
-            name.trim() == data.username && pass.trim() == data.pass
-        )
-        if (result) {
-            successMes()
+        const account = JSON.parse(window.localStorage.getItem("accountSignUp"));
+        if (account.length) {
+            const result = account.find((data) =>
+                name.trim() === data.username && pass.trim() === data.pass
+            )
+            if (result) {
+                successMes("Login success. Welcome to my website")
+            } else {
+                errMes("You don't have an account. Click sign up to register !")
+            }
         } else {
-            ToastError()
+            errMes();
         }
     }
 
@@ -36,7 +38,6 @@ function SignInForm() {
                     <h2 className="title">{SIGN_UP}</h2>
                     <InputBox icon="fas fa-user"
                         className="input-field" type="text"
-                        errMessage="Username is not valid ! Please try again !"
                         placeholder={USERNAME}
                         onChange={(e) => {
                             setName(e.target.value);
@@ -50,7 +51,6 @@ function SignInForm() {
                         icon="fas fa-lock"
                         className="input-field"
                         type={isPass ? "password" : "text"}
-                        errMessage="Password is not valid or isn't strong enough ! Please try again !"
                         isPass={isPass} setIsPass={setIsPass}
                         placeholder={PASSWORD} iconPass={isPass ? "fa-solid fa-eye-slash" : "fa-solid fa-eye "}
                         onChange={(e) => {

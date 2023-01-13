@@ -14,7 +14,7 @@ export const successMes = (message, time) => {
     });
 };
 
-export const ToastError = (message, time) => {
+export const errMes = (message, time) => {
     toast["error"](message || "error", {
         position: "top-right",
         autoClose: time || 1500,
@@ -29,7 +29,7 @@ export const ToastError = (message, time) => {
     });
 };
 
-export const ToastLoading = (message, time) => {
+export const loadingMsg = (message, time) => {
     toast["loading"](message || "loading", {
         position: "top-right",
         autoClose: time || 2500,
